@@ -1,0 +1,39 @@
+
+{% extends 'core/main.html'%}
+{% block content %} 
+<style>
+    input[type="text"],
+input[type="password"] {
+  height: 50px; 
+  border-radius:10px;
+  padding:0 20px;
+}
+</style>
+<div class="p-6 m-6 rounded-xl bg-gray-200 ">
+   <form method="post" action="." class=" flex flex-col text-center ">
+    {% csrf_token %}
+    <div class="flex flex-col lg:w-[25%] w-full lg:ml-[37%] ml-[0%] rounded-xl ">
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      {{ form.username }}
+    </div>
+    
+    <div class="flex flex-col lg:w-[25%] w-full lg:ml-[37%] ml-[0%]">
+      <label for="{{ form.password.id_for_label }}">Password</label>
+      {{ form.password }}
+    </div>
+   {% if form.errors or form.non_field_errors %}
+   <div class="mb-3 p-6 bg-red-100 rounded-xl ">
+       {% for field in form %}
+           {{ field.errors }}
+       {% endfor %}
+
+       {{ form.non_field_errors }}
+   </div>
+{% endif %}
+<button class="lg:w-[25%] w-full lg:ml-[37%] ml-[0%] bg-teal-500 hover:bg-teal-700 mt-4 py-2 text-white rounded-lg">Login</button>
+</form>
+<a href="{% url 'core:signUp'%}" class="ml-[38%] hover:text-gray-700 px-5 py-2 rounded-lg" >Don't have an account? signUp</a>
+
+</div>
+
+{% endblock %} 

@@ -1,0 +1,44 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <title>Eccomerce | App</title>
+  
+</head>
+<body class="overflow-x-hidden">
+    <nav class="px-10 py-3 text-lg flex flex-wrap lg:justify-between justify-center border-b lg:font-semibold">
+     <div class="flex gap-10 justify-between">
+        <a href="/" class=" hover:text-gray-500 ">Electronics</a>
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'core:logout' %}" method="post">
+            {% csrf_token %}
+           <button class="bg-pink-500 flex font-bold hover:bg-pink-600 hover:text-white inline-block items-center  max-h-10 mr-4 px-4 py-2 rounded shado text-white">
+                ({{request.user}})Logout
+        </button>
+        </form>
+        {% endif %}
+     </div>
+        
+        <div class="lg:flex grid grid-cols-2  flex-wrap lg:gap-10 gap-3 ">
+            <a href="{% url 'item:create-item' %}" class=" hover:text-red-500 lg:inline hidden">Add item</a>  
+            <a href="{% url 'item:create-item' %}" class=" flex items-center text-center justify-center text-white font-bold bg-teal-700 rounded-full w-[40px] h-[40px] lg:hidden inline ">+ </a>  
+            <a href="{% url 'item:items' %}" class=" hover:text-red-500 lg:inline hidden">Browse</a>
+            <a href="{% url 'item:items' %}" class="hover:text-red-500 lg:hidden inline ">Browse</a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'conversation:inbox' %}" class="bg-teal-500 hover:bg-teal-700 px-5 py-2 text-white rounded-lg " >Inbox</a>
+            <a href="{% url 'dashboard:dashboard' %}" class="bg-gray-500  hover:bg-gray-700 px-5 py-2 text-white rounded-lg">Dashboard</a>
+            {% else %}
+            <a href="{% url 'core:signUp'%}" class="bg-teal-500 hover:bg-teal-700 px-5 py-2 text-white rounded-lg" >signUp</a>
+            {% endif %}
+        </div>
+    </nav>
+   {% block content %} 
+    {% endblock %} 
+</body>
+</html>
